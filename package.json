@@ -1,12 +1,14 @@
 {
   "name": "@emilvooo/opencode-usage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple CLI to view OpenCode provider usage (Claude, Codex) at a glance",
   "type": "module",
   "bin": {
     "opencode-usage": "./dist/index.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
@@ -15,7 +17,15 @@
     "type": "git",
     "url": "git+https://github.com/Emilvooo/opencode-usage.git"
   },
-  "keywords": ["opencode", "claude", "codex", "openai", "anthropic", "usage", "cli"],
+  "keywords": [
+    "opencode",
+    "claude",
+    "codex",
+    "openai",
+    "anthropic",
+    "usage",
+    "cli"
+  ],
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
