@@ -1,5 +1,5 @@
-import type { ClaudeUsage } from "./providers/claude";
-import type { CodexUsage } from "./providers/codex";
+import type { ClaudeUsage } from "./providers/claude.js";
+import type { CodexUsage } from "./providers/codex.js";
 
 const DIM = "\x1b[2m";
 const RESET = "\x1b[0m";

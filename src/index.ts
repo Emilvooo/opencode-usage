@@ -1,14 +1,14 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
-import { fetchClaudeUsage } from "./providers/claude";
-import { fetchCodexUsage } from "./providers/codex";
+import { fetchClaudeUsage } from "./providers/claude.js";
+import { fetchCodexUsage } from "./providers/codex.js";
 import {
   displayHeader,
   displayFooter,
   displayClaude,
   displayCodex,
   displayError,
-} from "./display";
+} from "./display.js";
 
 async function main() {
   displayHeader();

@@ -1,4 +1,4 @@
-import { getClaudeAuth } from "../auth";
+import { getClaudeAuth } from "../auth.js";
 
 interface UsageWindow {
   utilization: number;

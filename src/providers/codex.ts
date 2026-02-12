@@ -1,4 +1,4 @@
-import { getCodexAuth } from "../auth";
+import { getCodexAuth } from "../auth.js";
 
 interface RateWindow {
   used_percent: number;
