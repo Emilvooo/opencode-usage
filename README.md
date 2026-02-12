@@ -23,6 +23,20 @@ Simple CLI to view your [OpenCode](https://opencode.ai) provider usage at a glan
 
 ```bash
 npm install -g @emilvooo/opencode-usage
+# or
+bun install -g @emilvooo/opencode-usage
+# or
+pnpm add -g @emilvooo/opencode-usage
+# or
+yarn global add @emilvooo/opencode-usage
+```
+
+Or run it directly without installing:
+
+```bash
+npx @emilvooo/opencode-usage
+bunx @emilvooo/opencode-usage
+pnpm dlx @emilvooo/opencode-usage
 ```
 
 ## Usage
