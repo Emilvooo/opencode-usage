@@ -12,10 +12,14 @@ Simple CLI to view your [OpenCode](https://opencode.ai) provider usage at a glan
     Sonnet       1%
     Overage      $38.27 / $50.00
 
-  ● Codex (team)
-  Primary        ▊                     4%       resets 1h 15m
-  Secondary      █▋                    8%       resets 5d 21h
-    Credits      $0.00
+  ● Codex
+    work@example.com  team · active
+      Primary     ▊                     4%     resets 1h 15m
+      Secondary   █▋                    8%     resets 5d 21h
+      Credits     $0.00
+
+    personal@example.com  plus
+      Primary     ████▎                21%     resets 48m
 ──────────────────────────────────────────────────────────────
 ```
 
@@ -47,12 +51,14 @@ opencode-usage
 
 That's it. Reads your OpenCode auth tokens automatically and fetches usage data in parallel.
 
+If you use `opencode-openai-multi-auth`, all OpenAI accounts from `~/.config/opencode/openai-accounts.json` are shown individually.
+
 ## Supported providers
 
 | Provider | Metrics |
 |----------|---------|
 | **Claude** (Anthropic) | 5h/7d usage windows, Sonnet/Opus breakdown, overage |
-| **Codex** (OpenAI) | Primary/secondary quotas, plan type, credits |
+| **Codex** (OpenAI) | Primary/secondary quotas, plan type, credits, multi-account support |
 
 ## Requirements
 
@@ -62,8 +68,9 @@ That's it. Reads your OpenCode auth tokens automatically and fetches usage data 
 ## How it works
 
 1. Reads tokens from `~/.local/share/opencode/auth.json`
-2. Fetches usage APIs for each configured provider in parallel
-3. Displays color-coded progress bars (green < 50%, yellow < 80%, red >= 80%)
+2. Reads OpenAI multi-account tokens from `~/.config/opencode/openai-accounts.json` when available
+3. Fetches usage APIs for each configured provider in parallel
+4. Displays color-coded progress bars (green < 50%, yellow < 80%, red >= 80%)
 
 ## License
 

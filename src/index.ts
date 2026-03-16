@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { fetchClaudeUsage } from "./providers/claude.js";
-import { fetchCodexUsage } from "./providers/codex.js";
+import { fetchCodexUsages } from "./providers/codex.js";
 import {
   displayHeader,
   displayFooter,
@@ -15,7 +15,7 @@ async function main() {
 
   const [claude, codex] = await Promise.allSettled([
     fetchClaudeUsage(),
-    fetchCodexUsage(),
+    fetchCodexUsages(),
   ]);
 
   if (claude.status === "fulfilled") {

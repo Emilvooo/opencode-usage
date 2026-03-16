@@ -1,4 +1,4 @@
-import { getCodexAuth } from "../auth.js";
+import { getCodexAuths, type CodexAuth } from "../auth.js";
 
 interface RateWindow {
   used_percent: number;
@@ -23,15 +23,40 @@ interface CodexResponse {
 }
 
 export interface CodexUsage {
+  account: {
+    index: number;
+    email?: string;
+    planType?: string;
+    active: boolean;
+  };
   planType: string;
   primary: { percent: number; resetsAt: Date };
   secondary?: { percent: number; resetsAt: Date };
   credits?: { balance: number; unlimited: boolean };
 }
 
-export async function fetchCodexUsage(): Promise<CodexUsage> {
-  const auth = await getCodexAuth();
-  if (!auth) throw new Error("No Codex auth found");
+export interface CodexUsageError {
+  account: {
+    index: number;
+    email?: string;
+    planType?: string;
+    active: boolean;
+  };
+  error: string;
+}
+
+export type CodexUsageEntry = CodexUsage | CodexUsageError;
+
+function toCodexAccount(auth: CodexAuth) {
+  return {
+    index: auth.index,
+    email: auth.email,
+    planType: auth.planType,
+    active: auth.active,
+  };
+}
+
+async function fetchCodexUsage(auth: CodexAuth): Promise<CodexUsage> {
   if (auth.expired) throw new Error("Codex token expired — re-authenticate with OpenCode");
 
   const headers: Record<string, string> = {
@@ -51,6 +76,7 @@ export async function fetchCodexUsage(): Promise<CodexUsage> {
   const secondary = data.rate_limit.secondary_window;
 
   return {
+    account: toCodexAccount(auth),
     planType: data.plan_type,
     primary: {
       percent: primary.used_percent,
@@ -69,4 +95,20 @@ export async function fetchCodexUsage(): Promise<CodexUsage> {
         }
       : undefined,
   };
+}
+
+export async function fetchCodexUsages(): Promise<CodexUsageEntry[]> {
+  const auths = await getCodexAuths();
+  if (auths.length === 0) throw new Error("No Codex auth found");
+
+  const results = await Promise.allSettled(auths.map((auth) => fetchCodexUsage(auth)));
+
+  return results.map((result, index) => {
+    if (result.status === "fulfilled") return result.value;
+
+    return {
+      account: toCodexAccount(auths[index]),
+      error: result.reason instanceof Error ? result.reason.message : "Unknown error",
+    };
+  });
 }
