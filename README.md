@@ -53,6 +53,17 @@ That's it. Reads your OpenCode auth tokens automatically and fetches usage data 
 
 If you use `opencode-openai-multi-auth`, all OpenAI accounts from `~/.config/opencode/openai-accounts.json` are shown individually.
 
+## macOS Menu Bar
+
+Show your usage in the macOS menu bar using [SwiftBar](https://github.com/swiftbar/SwiftBar):
+
+```bash
+brew install --cask swiftbar
+opencode-usage --install-swiftbar
+```
+
+This auto-detects your SwiftBar plugins folder and installs a plugin that refreshes every 5 minutes. Rename the plugin file to change the interval (`1m`, `5m`, `15m`, `30m`, etc).
+
 ## Supported providers
 
 | Provider | Metrics |

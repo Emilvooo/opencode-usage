@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { renderSwiftBar, installSwiftBar } from "./swiftbar.js";
 import { fetchClaudeUsage } from "./providers/claude.js";
 import { fetchCodexUsages } from "./providers/codex.js";
 import {
@@ -11,6 +12,16 @@ import {
 } from "./display.js";
 
 async function main() {
+  if (process.argv.includes("--install-swiftbar")) {
+    await installSwiftBar();
+    return;
+  }
+
+  if (process.argv.includes("--swiftbar")) {
+    await renderSwiftBar();
+    return;
+  }
+
   displayHeader();
 
   const [claude, codex] = await Promise.allSettled([
